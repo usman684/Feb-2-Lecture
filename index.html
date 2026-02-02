@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feb 2 Lect</title>
+</head>
+<body>
+    <form
+        onsubmit="
+        getweather();
+        return false;
+        "
+        >
+        <input type="text" id="city" placeholder="Enter your City">
+        <button type="submit">Check</button>
+    </form>   
+
+    <div id="weather"></div>
+
+    <script>
+        async function getweather() {
+            try{
+            const cityRef = document.querySelector("#city");
+            const city = cityRef.value;
+            //API calling
+            const weatherAPI = await fetch(
+                "https://p2pclouds.up.railway.app/v1/learn/weather?city=${city}",
+            );
+
+            const weatherRef = document.querySelector("#weather");
+            const data = await weatherAPI.json();
+            weatherRef.innerHTML = "${Pcity} Weather is ${data.current.feelslike_c}",
+            } catch(err) {
+                console.log(err)
+                alert("something went wrong");
+            }
+            
+    </script>
+</body>
+</html>
